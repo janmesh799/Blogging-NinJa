@@ -17,7 +17,6 @@ const BlogState = (props) => {
       },
     });
     const json = await response.json();
-    // console.log(json);
     setblogs(json);
   };
 
@@ -34,7 +33,8 @@ const BlogState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    // const json =  response.json();
+    const json = await response.json();
+    console.log(json);
     const blog = {
       _id: "62788a41ce5a3720c2d6fdfb",
       user: "627129797188046e99bc38bf",
@@ -59,7 +59,7 @@ const BlogState = (props) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3MTI5Nzk3MTg4MDQ2ZTk5YmMzOGJmIn0sImlhdCI6MTY1MjA2MjcwNH0.I_vyTVBCvcvDml6jOP-7SEqwzFM-JIz29-iMFam8ey8",
       },
     });
-    const json = response.json();
+    const json = await response.json();
     console.log(json);
     //logic for front-end
     console.log("deleting the blog with id - " + id);
@@ -74,15 +74,16 @@ const BlogState = (props) => {
     //api call
 
     const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3MTI5Nzk3MTg4MDQ2ZTk5YmMzOGJmIn0sImlhdCI6MTY1MjA2MjcwNH0.I_vyTVBCvcvDml6jOP-7SEqwzFM-JIz29-iMFam8ey8z",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3MTI5Nzk3MTg4MDQ2ZTk5YmMzOGJmIn0sImlhdCI6MTY1MjA2MjcwNH0.I_vyTVBCvcvDml6jOP-7SEqwzFM-JIz29-iMFam8ey8",
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
+    const json = await response.json();
+    console.log(json);
 
     //logic for front-end
 
@@ -92,8 +93,10 @@ const BlogState = (props) => {
         element.title = title;
         element.description = description;
         element.tag = tag;
+        break;
       }
     }
+    getblogs();
   };
   return (
     <blogContext.Provider
