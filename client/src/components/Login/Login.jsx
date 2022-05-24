@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = (props) => {
   const navigate = useNavigate();
   //   const history = useHistory();
@@ -75,13 +75,16 @@ const Login = (props) => {
             id="exampleCheck1"
           />
           <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
+            show password
           </label>
         </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
+      <div>
+        <Link to="/signup">Create an account</Link>
+      </div>
     </div>
   );
 };

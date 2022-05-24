@@ -11,7 +11,8 @@ const Addblog = (props) => {
   });
   const handleclick = (e) => {
     e.preventDefault();
-    addblog(blog.title, blog.description, blog.tag);
+    
+    addblog(blog.title, blog.description, blog.tag.split(", "));
     
     props.showAlert("Blog added successfully", "success");
   };
