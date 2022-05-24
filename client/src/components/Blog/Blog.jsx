@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import blogContext from "../../Context/blogs/blogContext";
 import Blogitem from "../Blogitem/Blogitem";
 const Blog = (props) => {
+  const navigate = useNavigate();
   const context = useContext(blogContext);
   const { blogs, getblogs, editblog } = context;
 
@@ -17,7 +19,11 @@ const Blog = (props) => {
   };
 
   useEffect(() => {
-    getblogs();
+    if (localStorage.getItem("token")) {
+      getblogs();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -25,11 +31,17 @@ const Blog = (props) => {
   const updateblog = (currentblog) => {
     handleShow();
     // ref.current.click();
+    const s = currentblog.tag;
+    let p = "";
+    for (let index = 0; index < s.length; index++) {
+      const element = s[index];
+      p += element + ", ";
+    }
     setblog({
       eid: currentblog._id,
       etitle: currentblog.title,
       edescription: currentblog.description,
-      etag: currentblog.tag,
+      etag: p,
     });
   };
 
@@ -38,9 +50,9 @@ const Blog = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handlesubmit = () => {
-    editblog(blog.eid, blog.etitle, blog.edescription, blog.etag);
+    editblog(blog.eid, blog.etitle, blog.edescription, blog.etag.split(", "));
     handleClose();
-    
+
     props.showAlert("Blog edited successfully", "success");
   };
   return (

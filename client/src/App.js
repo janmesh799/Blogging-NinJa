@@ -7,7 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Alert from "./components/Alert/Alert";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Profile from "./components/Profile/Profile";
+// require('dotenv').config()
+
 function App() {
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type) => {
@@ -19,11 +22,39 @@ function App() {
       setAlert(null);
     }, 1500);
   };
+  const host = "http://localhost:5000";
+  const [user, setuser] = useState({
+    _id: "",
+    name: "",
+    email: "",
+  });
+  const getuser = async () => {
+    //  Api call
+    const response = await fetch(`${host}/api/auth/getuser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = await response.json();
+    setuser({
+      _id: json._id,
+      name: json.name,
+      email: json.email,
+    });
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getuser();
+    }
+  });
+
   return (
     <>
       <BlogState>
         <BrowserRouter>
-          <Navbar />
+          <Navbar name={user.name} email={user.email} />
           <Alert alert={alert} />
           <div className="container">
             <Routes>
@@ -36,6 +67,10 @@ function App() {
               <Route
                 path="/signup"
                 element={<Signup showAlert={showAlert} />}
+              ></Route>
+              <Route
+                path="/profile"
+                element={<Profile user={user} showAlert={showAlert} />}
               ></Route>
             </Routes>
           </div>
