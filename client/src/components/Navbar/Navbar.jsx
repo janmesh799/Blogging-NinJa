@@ -24,17 +24,33 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link className={`nav-link ${location.pathname ==="/" ? "active":""}`} to="/">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+                to="/"
+              >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${location.pathname ==="/about" ? "active":""}`} to="/about">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/about" ? "active" : ""
+                }`}
+                to="/about"
+              >
                 About
               </Link>
             </li>
           </ul>
         </div>
+        <Link className="btn btn-primary mx-3" to="/login" role="button">
+          Log-in
+        </Link>
+        <Link className="btn btn-primary mx-3" to="/signup " role="button">
+          Sign-up
+        </Link>
       </nav>
     </div>
   );

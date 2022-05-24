@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useState } from "react";
 import blogContext from "../../Context/blogs/blogContext";
-const Addblog = () => {
+const Addblog = (props) => {
   const context = useContext(blogContext);
   const { addblog } = context;
   const [blog, setblog] = useState({
@@ -10,8 +10,10 @@ const Addblog = () => {
     tag: "",
   });
   const handleclick = (e) => {
-      e.preventDefault();
-    addblog(blog.title,blog.description, blog.tag);
+    e.preventDefault();
+    addblog(blog.title, blog.description, blog.tag);
+    
+    props.showAlert("Blog added successfully", "success");
   };
   const onchange = (e) => {
     setblog({ ...blog, [e.target.name]: e.target.value });
@@ -31,18 +33,20 @@ const Addblog = () => {
               name="title"
               className="form-control"
               id="title"
+              required
             />
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">
               Enter blog text
             </label>
-            <input
+            <textarea
               onChange={onchange}
               type="text"
               name="description"
               className="form-control"
               id="description"
+              required
             />
           </div>
           <div className="mb-3">
@@ -57,14 +61,24 @@ const Addblog = () => {
               id="tag"
             />
           </div>
-          
+
           <button
+            disabled={blog.title.length < 5 || blog.description.length < 5}
             type="submit"
             onClick={handleclick}
             className="btn btn-primary"
           >
             ADD Blog
           </button>
+          <p
+            className={
+              blog.title.length < 5 || blog.description.length < 5
+                ? ""
+                : "d-none"
+            }
+          >
+            **Title and Description should be atleast 5 characters long
+          </p>
         </form>
       </div>
     </div>

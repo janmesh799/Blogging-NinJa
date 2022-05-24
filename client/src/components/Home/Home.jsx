@@ -3,12 +3,13 @@ import Addblog from "../Addblog/Addblog";
 import Blog from "../Blog/Blog";
 
 import "./Home.scss";
-const Home = () => {
+const Home = (props) => {
+  const { showAlert } = props;
   return (
     <>
       <div className="container">
-        <Addblog />
-        <Blog />
+        <Addblog showAlert={showAlert} />
+        <Blog showAlert={showAlert} />
       </div>
     </>
   );
