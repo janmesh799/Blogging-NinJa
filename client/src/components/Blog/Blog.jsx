@@ -7,25 +7,18 @@ const Blog = (props) => {
   const { blogs, getblogs, editblog } = context;
 
   const [blog, setblog] = useState({
-    eid:"",
+    eid: "",
     etitle: "",
     edescription: "",
     etag: "",
   });
-
-  const onchangetitle = (e) => {
-    setblog({ etitle: e.target.value,edescription:blog.edescription,etag:blog.etag,eid:blog.eid });
-  };
-  const onchangedesc = (e) => {
-    setblog({ edescription: e.target.value,etitle:blog.etitle,etag:blog.etag,eid:blog.eid });
-  };
-  const onchangetag = (e) => {
-    setblog({ etag: e.target.value,etitle:blog.title,edescription:blog.edescription,eid:blog.eid });
+  const onchange = (e) => {
+    setblog({ ...blog, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
     getblogs();
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, []);
 
   // const ref = useRef(null);
@@ -39,18 +32,20 @@ const Blog = (props) => {
       etag: currentblog.tag,
     });
   };
- 
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-const handlesubmit =()=>{
-  editblog(blog.eid, blog.etitle, blog.edescription, blog.etag);
-  handleClose();
-}
+  const handlesubmit = () => {
+    editblog(blog.eid, blog.etitle, blog.edescription, blog.etag);
+    handleClose();
+    
+    props.showAlert("Blog edited successfully", "success");
+  };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="d-none" variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button>
 
@@ -66,7 +61,7 @@ const handlesubmit =()=>{
                   Title
                 </label>
                 <input
-                  onChange={onchangetitle}
+                  onChange={onchange}
                   type="text"
                   name="etitle"
                   value={blog.etitle}
@@ -78,8 +73,8 @@ const handlesubmit =()=>{
                 <label htmlFor="edescription" className="form-label">
                   Enter blog text
                 </label>
-                <input
-                  onChange={onchangedesc}
+                <textarea
+                  onChange={onchange}
                   type="text"
                   name="edescription"
                   value={blog.edescription}
@@ -92,7 +87,7 @@ const handlesubmit =()=>{
                   Enter blog tags
                 </label>
                 <input
-                  onChange={onchangetag}
+                  onChange={onchange}
                   type="text"
                   name="etag"
                   value={blog.etag}
@@ -107,13 +102,32 @@ const handlesubmit =()=>{
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handlesubmit}>
+          <Button
+            disabled={blog.etitle.length < 5 || blog.edescription.length < 5}
+            variant="primary"
+            onClick={handlesubmit}
+          >
             Edit
           </Button>
+          <p
+            className={
+              blog.etitle.length < 5 || blog.edescription.length < 5
+                ? ""
+                : "d-none"
+            }
+          >
+            **Title and Description should be atleast 5 characters long
+          </p>
         </Modal.Footer>
       </Modal>
       <h1>Your all Blogs</h1>
       <div className="row my-3">
+        <h3
+          className="mx-2"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          {blogs.length === 0 && "no blogs to show"}
+        </h3>
         {blogs.map((blog) => {
           return (
             <Blogitem

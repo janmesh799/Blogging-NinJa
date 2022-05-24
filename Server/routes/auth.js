@@ -23,9 +23,10 @@ router.post(
   //validating input got by server, if input is in correct format, then user is created.
   //if any error is there, the return bas request and all the errrors.
   async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success:false, errors: errors.array() });
     }
     try {
       // checking if user with same email already exists or not
@@ -33,7 +34,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "Sorry, user already exist with this email" });
+          .json({success:false, error: "Sorry, user already exist with this email" });
       }
       // if user is aleardy not exist, then create  a new user
       const salt = await bcrypt.genSalt(10);
@@ -53,7 +54,7 @@ router.post(
 
       // console.log(jwtData);
       // res.json({ status: "created" });
-      res.json({ authtoken });
+      res.json({success:true, authtoken });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal Server Error!!!");
@@ -76,6 +77,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    let success = false;
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email: req.body.email });
@@ -88,7 +90,10 @@ router.post(
       if (!password_compare) {
         return res
           .status(400)
-          .json({ error: "please, try to login with correct credentials" });
+          .json({
+            success: false,
+            error: "please, try to login with correct credentials",
+          });
       }
       const data = {
         user: {
@@ -96,7 +101,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.send({ authtoken });
+      success = true; 
+      res.send({ success, authtoken });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal Server Error!!!");

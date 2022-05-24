@@ -62,11 +62,10 @@ const BlogState = (props) => {
     const json = await response.json();
     console.log(json);
     //logic for front-end
-    console.log("deleting the blog with id - " + id);
     const newBlog = blogs.filter((blog) => {
       return blog._id !== id;
     });
-    setblogs(newBlog);
+    setblogs(newBlog)
   };
 
   //edit a blog
