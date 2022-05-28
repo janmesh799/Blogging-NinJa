@@ -1,8 +1,8 @@
 import blogContext from "./blogContext";
 import { useState } from "react";
 const BlogState = (props) => {
-  // const host = process.env.host;
-  const host = "http://localhost:5000";
+  const host = process.env.host;
+  // const host = "http://localhost:5000";
   const Blogsinitial = [];
   const [blogs, setblogs] = useState(Blogsinitial);
   //get all blogs
