@@ -5,7 +5,6 @@ const BlogState = (props) => {
   const host = "http://localhost:5000";
   const Blogsinitial = [];
   const [blogs, setblogs] = useState(Blogsinitial);
-  console.log(host);
   //get all blogs
   const getblogs = async () => {
     //  Api call
