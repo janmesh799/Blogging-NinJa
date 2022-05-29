@@ -1,8 +1,8 @@
 import blogContext from "./blogContext";
 import { useState } from "react";
 const BlogState = (props) => {
-  const host = process.env.host;
-  // const host = "http://localhost:5000";
+  // const host = process.env.BLOGGING_NINJA_HOST;
+  const host = "http://localhost:5000";
   const Blogsinitial = [];
   const [blogs, setblogs] = useState(Blogsinitial);
   //get all blogs
@@ -22,7 +22,7 @@ const BlogState = (props) => {
   //add a blog
   const addblog = async (title, description, tag) => {
     //  Api call
-
+console.log(host)
     const response = await fetch(`${host}/api/blogs/addblog`, {
       method: "POST",
       headers: {

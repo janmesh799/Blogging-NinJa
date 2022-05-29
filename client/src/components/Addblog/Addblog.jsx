@@ -9,18 +9,21 @@ const Addblog = (props) => {
     description: "",
     tag: "",
   });
+  // const [showadd, setshowadd] = useState(props.show);
   const handleclick = (e) => {
     e.preventDefault();
-    
+
     addblog(blog.title, blog.description, blog.tag.split(", "));
-    
+
     props.showAlert("Blog added successfully", "success");
+    // setshowadd("");
   };
   const onchange = (e) => {
     setblog({ ...blog, [e.target.name]: e.target.value });
   };
+  // console.log(props.show)
   return (
-    <div>
+    <div className={props.show}>
       <h1 className="my-5">Add a blog</h1>
       <div className="container my-3">
         <form>
