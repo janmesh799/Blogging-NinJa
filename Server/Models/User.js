@@ -18,6 +18,9 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  Interest:{
+    type:Array,
+  }
 });
 const User = mongoose.model("user", UserSchema);
 
