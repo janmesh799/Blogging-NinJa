@@ -16,7 +16,6 @@ const Addblog = (props) => {
     addblog(blog.title, blog.description, blog.tag.split(", "));
 
     props.showAlert("Blog added successfully", "success");
-    // setshowadd("");
   };
   const onchange = (e) => {
     setblog({ ...blog, [e.target.name]: e.target.value });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import "./Navbar.scss";
 const Navbar = (props) => {
   let location = useLocation();
   const navigate = useNavigate();
@@ -8,81 +8,80 @@ const Navbar = (props) => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link className="navbar-brand" to="/">
-          Blogging Nin-Ja
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
-                to="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  location.pathname === "/explore" ? "active" : ""
-                }`}
-                to="/explore"
-              >
-                Explore
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  location.pathname === "/about" ? "active" : ""
-                }`}
-                to="/about"
-              >
-                About
-              </Link>
-            </li>
-          </ul>
-        </div>
-        {!localStorage.getItem("token") ? (
+    <nav>
+      {" "}
+      <div className="navbar-background">
+        <div className="parent">
           <div>
-            <Link className="btn btn-primary mx-3" to="/login" role="button">
-              Log-in
-            </Link>
-            <Link className="btn btn-primary mx-3" to="/signup " role="button">
-              Sign-up
-            </Link>
+            <ul className="nav-list">
+              <li>
+                <Link to="/">
+                  <button className="title-btn"> Blogging ninja</button>
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/" || location.pathname ==="/login" ? "nav-link-active" : ""
+                  }`}
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/explore" ? "nav-link-active" : ""
+                  }`}
+                  to="/explore"
+                >
+                  Explore
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/about" ? "nav-link-active" : ""
+                  }`}
+                  to="/about"
+                >
+                  About
+                </Link>
+              </li>
+            </ul>
           </div>
-        ) : (
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link to="/profile" style={{ color: "white",textDecoration:"none",textAlign:"center" }}>
-              <h3 style={{margin:"0px"}}> {props.name}</h3>
-              <small >{props.email}</small>
-            </Link>
-            <button className="btn btn-primary mx-3" onClick={handleLogout}>
-              Logout
-            </button>
+          <div className="login">
+            {!localStorage.getItem("token") ? (
+              <div>
+                <Link to="/login" role="button">
+                  <button className="glow-on-hover"> Login </button>
+                </Link>
+                <Link to="/signup " role="button">
+                  <button className="glow-on-hover"> Sign-up</button>
+                </Link>
+              </div>
+            ) : (
+              <div className="creds">
+                <Link to="/profile">
+                  <div>
+                    <h3> {props.name}</h3>
+                    <small>{props.email}</small>
+                  </div>
+                </Link>
+                <button className="glow-on-hover" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
-        )}
-      </nav>
-    </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
