@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.scss";
 const Navbar = (props) => {
   let location = useLocation();
@@ -15,64 +15,70 @@ const Navbar = (props) => {
         <div className="parent">
           <div>
             <ul className="nav-list">
-              <li>
-                <Link to="/">
-                  <button className="title-btn"> Blogging ninja</button>
-                </Link>
+              <li style={{ margin: "0px" }}>
+                <NavLink to="/">
+                  <img
+                    className="title-img"
+                    src="https://imgur.com/ZCpZ1eL.jpg" alt="logo"
+                  />
+                  <button className="title-btn"> Blogging Nin-Ja</button>
+                </NavLink>
               </li>
               <li>
                 {" "}
-                <Link
-                  className={`nav-link ${
-                    location.pathname === "/" || location.pathname ==="/login" ? "nav-link-active" : ""
+                <NavLink
+                  className={`nav-link glow-on-hover ${
+                    location.pathname === "/" || location.pathname === "/login"
+                      ? "nav-link-active"
+                      : ""
                   }`}
                   to="/"
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
                 {" "}
-                <Link
-                  className={`nav-link ${
+                <NavLink
+                  className={`nav-link glow-on-hover ${
                     location.pathname === "/explore" ? "nav-link-active" : ""
                   }`}
                   to="/explore"
                 >
                   Explore
-                </Link>
+                </NavLink>
               </li>
               <li>
                 {" "}
-                <Link
-                  className={`nav-link ${
+                <NavLink
+                  className={`nav-link glow-on-hover ${
                     location.pathname === "/about" ? "nav-link-active" : ""
                   }`}
                   to="/about"
                 >
                   About
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
           <div className="login">
             {!localStorage.getItem("token") ? (
               <div>
-                <Link to="/login" role="button">
+                <NavLink to="/login" role="button">
                   <button className="glow-on-hover"> Login </button>
-                </Link>
-                <Link to="/signup " role="button">
+                </NavLink>
+                <NavLink to="/signup " role="button">
                   <button className="glow-on-hover"> Sign-up</button>
-                </Link>
+                </NavLink>
               </div>
             ) : (
               <div className="creds">
-                <Link to="/profile">
+                <NavLink to="/profile">
                   <div>
                     <h3> {props.name}</h3>
                     <small>{props.email}</small>
                   </div>
-                </Link>
+                </NavLink>
                 <button className="glow-on-hover" onClick={handleLogout}>
                   Logout
                 </button>

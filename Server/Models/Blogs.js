@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 const BlogSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user",
   },
   title: {
     type: String,
@@ -16,6 +16,11 @@ const BlogSchema = new Schema({
   tag: {
     type: Array,
     default: "General",
+  },
+  _private: {
+    type: Boolean,
+    required: true,
+    default: true,
   },
   date: {
     type: Date,

@@ -18,9 +18,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  Interest:{
-    type:Array,
-  }
+  Interest: {
+    type: Array,
+    default: ["entertainment", "technology", "business"],
+  },
 });
 const User = mongoose.model("user", UserSchema);
 

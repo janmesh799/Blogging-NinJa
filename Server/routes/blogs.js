@@ -30,7 +30,7 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req);
-      const { title, description, tag } = req.body;
+      const { title, description, tag,_private } = req.body;
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
@@ -38,6 +38,7 @@ router.post(
         title,
         description,
         tag,
+        _private,
         user: req.user.id,
       });
       const savedBlog = await blog.save();

@@ -2,18 +2,19 @@ import React from "react";
 import { useContext, useState } from "react";
 import blogContext from "../../Context/blogs/blogContext";
 const Addblog = (props) => {
+  // const [isprivate, setisprivate] = useState(false);
   const context = useContext(blogContext);
   const { addblog } = context;
   const [blog, setblog] = useState({
     title: "",
     description: "",
     tag: "",
+    _private: false,
   });
-  // const [showadd, setshowadd] = useState(props.show);
   const handleclick = (e) => {
     e.preventDefault();
 
-    addblog(blog.title, blog.description, blog.tag.split(", "));
+    addblog(blog.title, blog.description, blog.tag.split(", "), blog._private);
 
     props.showAlert("Blog added successfully", "success");
   };
@@ -63,6 +64,27 @@ const Addblog = (props) => {
               className="form-control"
               id="tag"
             />
+          </div>
+          <div className="mb-3">
+            <label className="form-check-label" htmlFor="_private">
+              Private
+            </label>
+            <input
+              onChange={() => {
+                blog.isprivate === true
+                  ? setblog({ ...blog, _private: false })
+                  : setblog({ ...blog, _private: true });
+              }}
+              style={{ marginLeft: "1em" }}
+              name="_private"
+              type="checkbox"
+              className="form-check-input"
+              id="_private"
+            />
+            <br />
+            <span className="text-muted">
+              &nbsp;&nbsp;&nbsp;&nbsp; **to make blogs private
+            </span>
           </div>
 
           <button

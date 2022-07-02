@@ -143,6 +143,7 @@ const Blog = (props) => {
         {blogs.map((blog) => {
           return (
             <Blogitem
+            control = {true}
               key={blog._id}
               updateblog={() => {
                 updateblog(blog);
