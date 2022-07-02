@@ -20,26 +20,28 @@ const BlogState = (props) => {
   };
 
   //add a blog
-  const addblog = async (title, description, tag) => {
+  const addblog = async (title, description, tag,_private) => {
     //  Api call
-console.log(host)
+    // console.log(host);
+    console.log("got private = ",_private)
     const response = await fetch(`${host}/api/blogs/addblog`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
-      body: JSON.stringify({ title, description, tag }),
+      body: JSON.stringify({ title, description, tag,_private }),
     });
     const json = await response.json();
     console.log(json);
     const blog = {
-      _id: "62788a41ce5a3720c2d6fdfb",
-      user: "627129797188046e99bc38bf",
+      private: json._private,
+      _id: json._id,
+      user: json.user,
       title: title,
       description: description,
       tag: tag,
-      date: "2022-05-09T03:28:01.154Z",
+      date: json.date,
       __v: 0,
     };
     setblogs(blogs.concat(blog));
@@ -91,11 +93,31 @@ console.log(host)
         break;
       }
     }
+
     getblogs();
   };
+  //get a blog
+  // const getoneblog = async (id) => {
+  //   const response = await fetch(`${host}/api/blog/${id}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       _id: id,
+  //     },
+  //   });
+  //   const json = await response.json();
+  //   console.log(json);
+  // };
   return (
     <blogContext.Provider
-      value={{ blogs, addblog, deleteblog, editblog, getblogs }}
+      value={{
+        blogs,
+      
+        addblog,
+        deleteblog,
+        editblog,
+        getblogs,
+      }}
     >
       {props.children}
     </blogContext.Provider>

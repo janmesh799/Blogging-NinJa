@@ -2,6 +2,7 @@ import "./App.css";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import BlogState from "./Context/blogs/BlogState";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Alert from "./components/Alert/Alert";
@@ -9,6 +10,8 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import { useState, useEffect } from "react";
 import Profile from "./components/Profile/Profile";
+import Blogpage from "./components/Blogpage/Blogpage";
+import Explore from "./components/Explore/Explore";
 // require('dotenv').config()
 
 function App() {
@@ -72,8 +75,12 @@ function App() {
                 path="/profile"
                 element={<Profile user={user} showAlert={showAlert} />}
               ></Route>
+              <Route path="/blog/:id" element={<Blogpage />}></Route>
+              <Route path="/explore" element={<Explore />}></Route>
             </Routes>
           </div>
+
+          <Footer />
         </BrowserRouter>
       </BlogState>
     </>
