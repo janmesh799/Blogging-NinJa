@@ -30,7 +30,7 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req);
-      const { title, description, tag,_private } = req.body;
+      const { title, description, tag, _private } = req.body;
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
@@ -53,7 +53,7 @@ router.post(
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     //creating a new blog object
-    const { title, description, tag } = req.body;
+    const { title, description, tag, _private } = req.body;
     const newblog = {};
     if (title) {
       newblog.title = title;
@@ -64,7 +64,8 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     if (tag) {
       newblog.tag = tag;
     }
-
+    if (_private === true) newblog._private = true;
+    else newblog._private = false;
     //find the blog to be updated and updating
     let blog = await Blogs.findById(req.params.id);
     if (!blog) {

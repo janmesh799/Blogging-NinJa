@@ -68,7 +68,7 @@ const BlogState = (props) => {
   };
 
   //edit a blog
-  const editblog = async (id, title, description, tag) => {
+  const editblog = async (id, title, description, tag,_private) => {
     //api call
 
     const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
@@ -77,7 +77,7 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
-      body: JSON.stringify({ title, description, tag }),
+      body: JSON.stringify({ title, description, tag ,_private}),
     });
     const json = await response.json();
     console.log(json);
