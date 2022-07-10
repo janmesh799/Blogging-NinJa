@@ -71,7 +71,7 @@ const Addblog = (props) => {
             </label>
             <input
               onChange={() => {
-                blog.isprivate === true
+                blog._private === true
                   ? setblog({ ...blog, _private: false })
                   : setblog({ ...blog, _private: true });
               }}

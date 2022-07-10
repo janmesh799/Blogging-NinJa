@@ -79,8 +79,8 @@ function App() {
               <Route path="/explore" element={<Explore />}></Route>
             </Routes>
           </div>
-
-          <Footer />
+<div style={{marginTop:"20vh"}}>
+          <Footer /></div>
         </BrowserRouter>
       </BlogState>
     </>

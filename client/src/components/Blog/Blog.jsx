@@ -13,6 +13,7 @@ const Blog = (props) => {
     etitle: "",
     edescription: "",
     etag: "",
+    e_private: false,
   });
   const onchange = (e) => {
     setblog({ ...blog, [e.target.name]: e.target.value });
@@ -30,7 +31,6 @@ const Blog = (props) => {
   // const ref = useRef(null);
   const updateblog = (currentblog) => {
     handleShow();
-    // ref.current.click();
     const s = currentblog.tag;
     let p = "";
     for (let index = 0; index < s.length; index++) {
@@ -42,6 +42,7 @@ const Blog = (props) => {
       etitle: currentblog.title,
       edescription: currentblog.description,
       etag: p,
+      e_private: false,
     });
   };
 
@@ -50,7 +51,15 @@ const Blog = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handlesubmit = () => {
-    editblog(blog.eid, blog.etitle, blog.edescription, blog.etag.split(", "));
+    console.log(blog);
+
+    editblog(
+      blog.eid,
+      blog.etitle,
+      blog.edescription,
+      blog.etag.split(", "),
+      blog.e_private
+    );
     handleClose();
 
     props.showAlert("Blog edited successfully", "success");
@@ -107,6 +116,25 @@ const Blog = (props) => {
                   id="etag"
                 />
               </div>
+              <div className="mb-3">
+                <label className="form-check-label" htmlFor="_private">
+                  Private
+                </label>
+                <input
+                  onChange={() => {
+                    setblog({ ...blog, e_private: !blog.e_private });
+                  }}
+                  style={{ marginLeft: "1em" }}
+                  name="_private"
+                  type="checkbox"
+                  className="form-check-input"
+                  id="_private"
+                />
+                <br />
+                <span className="text-muted">
+                  &nbsp;&nbsp;&nbsp;&nbsp; **to make blogs private
+                </span>
+              </div>
             </form>
           </div>
         </Modal.Body>
@@ -143,7 +171,7 @@ const Blog = (props) => {
         {blogs.map((blog) => {
           return (
             <Blogitem
-            control = {true}
+              control={true}
               key={blog._id}
               updateblog={() => {
                 updateblog(blog);

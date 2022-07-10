@@ -28,12 +28,14 @@ const Explore = () => {
           >
             {blogs.length === 0 && "no blogs to show"}
           </h3>
-          {blogs.map((blog) => {
-            return <Blogitem control={false} key={blog._id} blog={blog} />;
-          })}
+          <div style={{ display: "flex",flexWrap:"wrap",justifyContent:"center" }}>
+            {blogs.map((blog) => {
+              return <Blogitem control={false} key={blog._id} blog={blog} />;
+            })}
+          </div>
         </div>
       ) : (
-        <h2 style={{textAlign:"center"}} >Sorry, No blogs available</h2>
+        <h2 style={{ textAlign: "center" }}>Sorry, No blogs available</h2>
       )}
     </div>
   );

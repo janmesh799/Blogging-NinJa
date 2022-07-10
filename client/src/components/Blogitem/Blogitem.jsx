@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import blogContext from "../../Context/blogs/blogContext";
+import "./Blogitem.scss";
 const Blogitem = (props) => {
   const context = useContext(blogContext);
   const { deleteblog } = context;
   const { blog, updateblog } = props;
   // const description1 = blog.description;
   const [description1, setdescription1] = useState(blog.description);
- 
+
   if (description1.length > 200) {
     setdescription1(description1.slice(0, 200));
   }
@@ -23,27 +24,47 @@ const Blogitem = (props) => {
               justifyContent: "space-between",
             }}
           >
-            <h5 className="card-title">{blog.title}</h5>
+            <h5 style={{width:props.control?"60%":"100%"}} className="card-title">{blog.title}</h5>
             {props.control ? (
               <div>
-                <i
-                  className="fa-solid fa-trash-can mx-2"
-                  onClick={() => {
-                    deleteblog(blog._id);
-                  }}
-                ></i>
-                <i
-                  className="fa-solid fa-pen-to-square mx-2"
-                  onClick={() => {
-                    updateblog(blog);
-                  }}
-                ></i>
+                <div className="icons">
+                  <i
+                    className="fa-solid fa-trash-can  icon"
+                    onClick={() => {
+                      deleteblog(blog._id);
+                    }}
+                  ></i>
+                  <i
+                    className="fa-solid fa-pen-to-square  icon"
+                    onClick={() => {
+                      updateblog(blog);
+                    }}
+                  ></i>
+
+                  {blog._private ? (
+                    <img
+                      className="icon"
+                      style={{ width: "2em" }}
+                      src="https://img.icons8.com/ios-filled/50/000000/lock.png"
+                      alt="This blog is private"
+                    />
+                  ) : (
+                    <img
+                      className="icon"
+                      style={{ width: "2em" }}
+                      src="https://img.icons8.com/ios-filled/50/000000/unlock--v1.png"
+                      alt="This blog is private"
+                    />
+                  )}
+                </div>
               </div>
             ) : (
               <div></div>
             )}
           </div>
-          <p className="card-text">
+          <p 
+          style={{marginTop:"2em"}}
+           className="card-text">
             {description1 + "......"}
             <Link to={"/blog/blog#" + blog._id}>read more</Link>
           </p>
