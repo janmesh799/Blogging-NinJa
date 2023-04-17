@@ -2,9 +2,7 @@
 import blogContext from "./blogContext";
 import { useState } from "react";
 const BlogState = (props) => {
-  // const host = process.env.BLOGGING_NINJA_HOST;
-  const host = "http://localhost:5000";
-  // const host = process.env.BACKEND_HOST;
+  const host = "https://blogging-nin-ja-kitb.vercel.app/";
   const Blogsinitial = [];
   const [blogs, setblogs] = useState(Blogsinitial);
   //get all blogs
