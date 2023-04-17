@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 const Blogpage = (props) => {
   const location = useLocation();
-  const host = "http://localhost:5000";
+  const host = "https://blogging-nin-ja-kitb.vercel.app";
   const id = location.hash.substring(1);
   const [blog, setblog] = useState({
     date: "",

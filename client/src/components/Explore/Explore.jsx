@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Blogitem from "../Blogitem/Blogitem";
 import "./Explore.scss";
 const Explore = () => {
-  const host = "http://localhost:5000";
+  const host = "https://blogging-nin-ja-kitb.vercel.app";
   const [blogs, setblogs] = useState([]);
   const getblogs = async () => {
     const response = await fetch(`${host}/api/blog/explore`, {
