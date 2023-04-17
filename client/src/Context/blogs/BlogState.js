@@ -1,8 +1,10 @@
+// require('dotenv').config();
 import blogContext from "./blogContext";
 import { useState } from "react";
 const BlogState = (props) => {
   // const host = process.env.BLOGGING_NINJA_HOST;
   const host = "http://localhost:5000";
+  // const host = process.env.BACKEND_HOST;
   const Blogsinitial = [];
   const [blogs, setblogs] = useState(Blogsinitial);
   //get all blogs
@@ -20,17 +22,17 @@ const BlogState = (props) => {
   };
 
   //add a blog
-  const addblog = async (title, description, tag,_private) => {
+  const addblog = async (title, description, tag, _private) => {
     //  Api call
     // console.log(host);
-    console.log("got private = ",_private)
+    console.log("got private = ", _private)
     const response = await fetch(`${host}/api/blogs/addblog`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
-      body: JSON.stringify({ title, description, tag,_private }),
+      body: JSON.stringify({ title, description, tag, _private }),
     });
     const json = await response.json();
     console.log(json);
@@ -68,7 +70,7 @@ const BlogState = (props) => {
   };
 
   //edit a blog
-  const editblog = async (id, title, description, tag,_private) => {
+  const editblog = async (id, title, description, tag, _private) => {
     //api call
 
     const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
@@ -77,7 +79,7 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
-      body: JSON.stringify({ title, description, tag ,_private}),
+      body: JSON.stringify({ title, description, tag, _private }),
     });
     const json = await response.json();
     console.log(json);
@@ -112,7 +114,7 @@ const BlogState = (props) => {
     <blogContext.Provider
       value={{
         blogs,
-      
+
         addblog,
         deleteblog,
         editblog,
